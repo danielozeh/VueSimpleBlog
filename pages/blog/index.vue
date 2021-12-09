@@ -1,0 +1,120 @@
+<template>
+    <div>
+        <!-- start intro -->
+		<div id="intro" class="jarallax" data-speed="0.5" style="background-image: url(img/intro_img/1.jpg);">
+			<div class="grid grid--container">
+				<div class="row row--xs-middle">
+					<div class="col col--lg-5 text--center">
+						<h1 class="__title">All Blog Categories</h1>
+						<p></p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end intro -->
+
+		<!-- start main -->
+		<main role="main">
+			<!-- start section -->
+			<section class="section section--light-bg">
+				<div class="grid grid--container">
+					<!-- start posts -->
+					<div class="posts">
+						<div class="__inner">
+							<template v-if="$fetchState.pending">
+								<PendingPlaceholder/>
+							</template>
+
+							<template v-else-if="$fetchState.error">
+								<ErrorPlaceholder message="Failed to Load Resource"/> 
+								<center>
+									<button class="btn btn-danger btn-block" @click="$fetch">Try Again</button>
+								</center>                        
+							</template>
+
+							<template v-else>
+								<div class="row  js-masonry"
+									data-masonry-options='{
+										"itemSelector": ".js-masonry__item",
+										"transitionDuration": "0.8s",
+										"percentPosition": "true",
+										"masonry": { "columnWidth": ".js-masonry__sizer" }
+									}'>
+
+									<!-- start item -->
+									<div class="col col--sm-6 col--lg-4" v-for="category in all_categories" :key="category.id">
+										<!--<div data-aos="zoom-in-up" data-aos-delay="100" data-aos-offset="0"> -->
+										<div data-aos-delay="100" data-aos-offset="0">
+											<div class="__item __item--preview">
+												<figure class="__image">
+													
+													<img :src="`${ image_path }${ category.thumbnail }`" :data-src="`${ category.thumbnail }`" :alt="`${ category.title }`" />
+												</figure>
+
+												<div class="__content">
+
+													<h3 class="__title h4"><nuxt-link :to="`/blog/category/${ category.slug }`">{{ category.title }}</nuxt-link></h3>
+
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- end item -->
+
+									
+								</div>
+							</template>
+						</div>
+
+						<div class="text--center" data-aos="fade">
+							<a id="posts-more-btn" class="custom-btn custom-btn--medium custom-btn--style-2" href="javascript:void(0);">Show more</a>
+						</div>
+					</div>
+					<!-- end posts -->
+				</div>
+			</section>
+			<!-- end section -->
+		</main>
+		<!-- end main -->
+    </div>
+</template>
+
+<script>
+import PendingPlaceholder from '~/components/PendingPlaceholder.vue'
+import ErrorPlaceholder from '~/components/ErrorPlaceholder.vue'
+
+export default {
+  layout: "main_default",
+
+  components: {
+        PendingPlaceholder,
+        ErrorPlaceholder
+   },
+
+  head() {
+    return {
+      title: 'Blog Categories'
+    }
+  },
+
+  data() {
+	  return {
+		  status: 1,
+		  blog_posts: []
+	  }
+  },
+
+  filters: {
+	truncate(string, value) {
+		return string.substring(0, value) + '…';
+	}
+  },
+
+  async fetch() {
+	  	let res = await this.$store.dispatch("blog/getAllCategories");
+		//console.log(res)
+		this.image_path = res.image_path
+		this.all_categories = res.message;
+  }
+}
+</script>
