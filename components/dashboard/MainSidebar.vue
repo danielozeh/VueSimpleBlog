@@ -22,7 +22,7 @@
 
     <!-- Logo -->
     <div class="logo-sn ms-d-block-lg" style="background-color: #fff;">
-      <nuxt-link to="/" class="pl-0 ml-0 text-center"> <img src="/logo.png" alt="Blockchain Remark"> </nuxt-link>
+      <nuxt-link to="/" class="pl-0 ml-0 text-center"> <img src="/logo.png" alt="Simple Blog"> </nuxt-link>
     </div>
 
     <!-- Navigation -->

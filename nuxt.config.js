@@ -15,7 +15,7 @@ export default {
       { charset: 'utf-8', content: 'text/html' },
       { name: 'viewport', content: 'initial-scale=1.0, user-scalable=no' },
       { name: 'viewport', content: 'user-scalable=no, width=device-width, height=device-height, initial-scale=1, maximum-scale=1, minimum-scale=1, minimal-ui' },
-      { hid: 'description', name: 'description', content: 'Blockchain Remark' },
+      { hid: 'description', name: 'description', content: 'Simple Blog' },
       { name: 'theme-color', content: '#3F6EBF' },
       { name: 'msapplication-navbutton-color', content: '#3F6EBF' },
       { name: 'apple-mobile-web-app-status-bar-style', content: '#3F6EBF' }
